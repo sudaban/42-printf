@@ -6,13 +6,14 @@
 /*   By: sdaban <sdaban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 10:54:28 by sdaban            #+#    #+#             */
-/*   Updated: 2024/11/07 15:46:57 by sdaban           ###   ########.fr       */
+/*   Updated: 2024/11/13 10:33:07 by sdaban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdarg.h>
 
-int	ft_format(va_list *args, char c)
+static int	ft_format(va_list *args, char c)
 {
 	int	ret;
 
@@ -43,8 +44,6 @@ static int	handle_format(va_list *args, const char *str, int *i)
 	ret = 0;
 	if (str[*i] == '%')
 	{
-		if (str[*i + 1] == '\0')
-			return (-1);
 		ret = ft_format(args, str[*i + 1]);
 		(*i)++;
 	}
@@ -76,17 +75,4 @@ int	ft_printf(const char *str, ...)
 	}
 	va_end(args);
 	return (len);
-}
-
-#include <stdio.h>
-#include <unistd.h>
-int main()
-{
-	int retf = ft_printf("Hello %");
-	write(1,"\n", 1);
-	int ret = printf("Hello %");
-
-	write(1,"\n", 1);
-	printf("%d", retf);
-	printf("%d", ret);
 }
